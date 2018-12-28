@@ -31,7 +31,7 @@
     Vue.component('date-picker', {
       template: '<input v-model="date" />',
       props: ['dateFormat', 'date'],
-      mounted: function () {
+      mounted() {
         var vm = this;
         $(this.$el).datepicker({
           dateFormat: this.dateFormat,
@@ -40,7 +40,7 @@
           }
         });
       },
-      beforeDestroy: function () {
+      beforeDestroy() {
         $(this.$el).datepicker('hide').datepicker('destroy');
       }
     });
@@ -48,11 +48,11 @@
     Vue.component('vue-countdown', {
       template: '<div id="clock"></div>',
       props: ['date'],
-      mounted: function(){
+      mounted(){
         this.counter();
       },
       methods: {
-        counter: function() {
+        counter() {
           $(this.$el).countdown(this.date, function (event) {
             $(this).html(event.strftime(
               '<div><span>%w</span><span> Week</span></div>' +
@@ -65,7 +65,7 @@
         },
       },
       watch: {
-        date: function(){
+        date(){
           this.counter();
         }
       }
@@ -79,7 +79,7 @@
         }
       },
       methods: {
-        updateDate: function (date) {
+        updateDate(date) {
           this.date = date;
         }
       }
