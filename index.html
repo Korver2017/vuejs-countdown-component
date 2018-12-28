@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>2019 New Year Countdown</title>
+  <link href="http://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="http://code.jquery.com/jquery-3.1.0.js"></script>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css'/>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js'></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.countdown/2.2.0/jquery.countdown.js"></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.21/vue.js'></script>
+</head>
+
+<body>
+  <div id="app">
+    <h2>2019 New Year Countdown</h2>
+    <vue-countdown date="2019/01/01"></vue-countdown>
+    <h2>2019 Christmas Countdown</h2>
+    <vue-countdown date="2019/12/25"></vue-countdown>
+    <h2>Custom Countdown</h2>
+    <p>You Can Choose Any Date You Want Below</p>
+    <date-picker @update="updateDate" :date="date" date-format="yy/mm/dd" v-once></date-picker><span>{{ date }}</span>
+    <vue-countdown :date="date"></vue-countdown>
+  </div>
+
+  <script>
+    Vue.component('date-picker', {
+      template: '<input v-model="date" />',
+      props: ['dateFormat', 'date'],
+      mounted: function () {
+        var vm = this;
+        $(this.$el).datepicker({
+          dateFormat: this.dateFormat,
+          onSelect: function (date) {
+            vm.$emit('update', date);
+          }
+        });
+      },
+      beforeDestroy: function () {
+        $(this.$el).datepicker('hide').datepicker('destroy');
+      }
+    });
+
+    Vue.component('vue-countdown', {
+      template: '<div id="clock"></div>',
+      props: ['date'],
+      mounted: function(){
+        this.counter();
+      },
+      methods: {
+        counter: function() {
+          $(this.$el).countdown(this.date, function (event) {
+            $(this).html(event.strftime(
+              '<div><span>%w</span><span> Week</span></div>' +
+              '<div><span>%d</span><span> Day</span></div>' +
+              '<div><span>%H</span><span> Hr</span></div>' +
+              '<div><span>%M</span><span> Min</span></div>' +
+              '<div><span>%S</span><span> Sec</span></div>'
+            ));
+          });
+        },
+      },
+      watch: {
+        date: function(){
+          this.counter();
+        }
+      }
+    });
+
+    new Vue({
+      el: '#app',
+      data(){
+        return {
+          date: '2019/01/01',
+        }
+      },
+      methods: {
+        updateDate: function (date) {
+          this.date = date;
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

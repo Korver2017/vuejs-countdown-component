@@ -1,0 +1,83 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  background-color: #262626;
+}
+
+#app h2 {
+  color: #fff;
+  margin-bottom: .5rem;
+}
+
+#app h2:last-child {
+  margin-bottom: 0;
+}
+
+#app p {
+  color: #fff;
+  margin-top: 0;
+}
+
+#app input {
+  font-family: 'Poppins', sans-serif;
+  border-radius: 20px;
+  outline: none;
+  border: none;
+  text-align: center;
+  height: 2rem;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+}
+
+#app span {
+  color: #ffffff;
+}
+
+#clock {
+  display: flex;
+  width: 570px;
+  margin: 0 auto;
+}
+
+#clock div {
+  position: relative;
+  width: 100px;
+  padding: 20px;
+  margin: 0 5px;
+  background-color: #262626;
+  color: #fff;
+  border: 2px solid #000;
+}
+
+#clock div:last-child {
+  background-color: #e91e63;
+}
+
+#clock div:before {
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 50%;
+  top: 0;
+  left: 0;
+  background: rgba(255, 255, 255, .2);
+}
+
+#clock div span {
+  display: block;
+  text-align: center;
+}
+
+#clock div span:nth-child(1) {
+  font-size: 48px;
+  font-weight: 800;
+}
+
+#clock div span:nth-child(2) {
+  font-size: 18px;
+  font-weight: 800;
+  margin-top: -10px;
+}
