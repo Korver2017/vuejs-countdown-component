@@ -36,13 +36,13 @@ body {
   color: #ffffff;
 }
 
-#clock {
+.clock {
   display: flex;
   width: 570px;
   margin: 0 auto;
 }
 
-#clock div {
+.clock div {
   position: relative;
   width: 100px;
   padding: 20px;
@@ -52,11 +52,11 @@ body {
   border: 2px solid #000;
 }
 
-#clock div:last-child {
+.clock div:last-child {
   background-color: #e91e63;
 }
 
-#clock div:before {
+.clock div:before {
   position: absolute;
   content: '';
   width: 100%;
@@ -66,17 +66,17 @@ body {
   background: rgba(255, 255, 255, .2);
 }
 
-#clock div span {
+.clock div span {
   display: block;
   text-align: center;
 }
 
-#clock div span:nth-child(1) {
+.clock div span:nth-child(1) {
   font-size: 48px;
   font-weight: 800;
 }
 
-#clock div span:nth-child(2) {
+.clock div span:nth-child(2) {
   font-size: 18px;
   font-weight: 800;
   margin-top: -10px;
