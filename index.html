@@ -23,14 +23,20 @@
     <vue-countdown date="2019/12/25"></vue-countdown>
     <h2>Custom Countdown</h2>
     <p>You Can Choose Any Date You Want Below</p>
-    <date-picker @update="updateDate" :date="date" date-format="yy/mm/dd" v-once></date-picker><span>{{ date }}</span>
+    <date-picker @update="updateDate" :date="date" date-format="yy/mm/dd" v-once></date-picker>
+    <span>{{ date }}</span>
     <vue-countdown :date="date"></vue-countdown>
   </div>
 
   <script>
     Vue.component('date-picker', {
-      template: '<input v-model="date" />',
+      template: '<input v-model="newDate" />',
       props: ['dateFormat', 'date'],
+      data() {
+        return {
+          newDate: this.date,
+        }
+      },
       mounted() {
         var vm = this;
         $(this.$el).datepicker({
@@ -39,10 +45,16 @@
             vm.$emit('update', date);
           }
         });
+        var getDate = localStorage.getItem('newDate');
+        if (getDate !== null){
+          vm.newDate = localStorage.getItem('newDate');
+        } else {
+          return vm.newDate;
+        }
       },
       beforeDestroy() {
         $(this.$el).datepicker('hide').datepicker('destroy');
-      }
+      },
     });
 
     Vue.component('vue-countdown', {
@@ -78,11 +90,23 @@
           date: '2019/01/01',
         }
       },
+      mounted(){
+        this.getDate();
+      },
       methods: {
+        getDate(){
+          var newDate = localStorage.getItem('newDate');
+          if(newDate !== null){
+            this.date = newDate;
+          } else {
+            return this.date;
+          }
+        },
         updateDate(date) {
           this.date = date;
-        }
-      }
+          localStorage.setItem('newDate', this.date);
+        },
+      },
     });
   </script>
 </body>
