@@ -13,20 +13,27 @@
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js'></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.countdown/2.2.0/jquery.countdown.js"></script>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.21/vue.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js'>
+  </script>
 </head>
 
 <body>
   <div id="app">
     <h2>2020 Happy New Year!</h2>
     <vue-countdown date="2020/01/01"></vue-countdown>
-    <h2>2020 National Day Countdown</h2>
-    <vue-countdown date="2020/10/10"></vue-countdown>
+
     <h2>2020 Christmas Countdown</h2>
     <vue-countdown date="2020/12/25"></vue-countdown>
+
+    <h2> {{ next.year }} Happy New Year! (Self-Updated Countdown)</h2>
+    <vue-countdown :date="next.date"></vue-countdown>
+
     <h2>Custom Countdown</h2>
     <p>You Can Choose Any Date You Want Below</p>
+
     <date-picker @update="updateDate" :date="date" date-format="yy/mm/dd" v-once></date-picker>
     <span>{{ date }}</span>
+
     <vue-countdown :date="date"></vue-countdown>
   </div>
 
@@ -90,8 +97,24 @@
       data(){
         return {
           date: '2019/01/01',
+
+          now: moment (Date.now()).format ('YYYY'),
         }
       },
+      
+      computed: {
+
+        next () {
+
+          let next = {year: '', date: ''};
+          
+          next.year = Number (this.now) + 1;
+          next.date = `${next.year}/01/01`;
+
+          return next;
+        }
+      },
+
       mounted(){
         this.getDate();
       },
