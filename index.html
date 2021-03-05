@@ -39,28 +39,32 @@
 
   <script>
     Vue.component('date-picker', {
-      template: '<input v-model="newDate" />',
+      template: '<input v-model="pickerDate" />',
       props: ['dateFormat', 'date'],
       data() {
         return {
-          newDate: this.date,
+          pickerDate: this.date,
         }
       },
       mounted() {
-        var vm = this;
+
+        let vm = this;
+
         $(this.$el).datepicker({
           dateFormat: this.dateFormat,
           onSelect: function (date) {
             vm.$emit('update', date);
           }
         });
-        var getDate = localStorage.getItem('newDate');
-        if (getDate !== null){
-          vm.newDate = localStorage.getItem('newDate');
-        } else {
-          return vm.newDate;
-        }
+
+        let getDate = localStorage.getItem ('savedDate');
+
+        if (! getDate)
+          return vm.pickerDate;
+          
+        vm.pickerDate = localStorage.getItem ('savedDate');
       },
+
       beforeDestroy() {
         $(this.$el).datepicker('hide').datepicker('destroy');
       },
@@ -121,18 +125,22 @@
       mounted(){
         this.getDate();
       },
+
       methods: {
-        getDate(){
-          var newDate = localStorage.getItem('newDate');
-          if(newDate !== null){
-            this.date = newDate;
-          } else {
+
+        getDate () {
+
+          let pickerDate = localStorage.getItem ('savedDate');
+
+          if (! pickerDate)
             return this.date;
-          }
+
+          this.date = pickerDate;
         },
-        updateDate(date) {
+
+        updateDate (date) {
           this.date = date;
-          localStorage.setItem('newDate', this.date);
+          localStorage.setItem ('savedDate', this.date);
         },
       },
     });
