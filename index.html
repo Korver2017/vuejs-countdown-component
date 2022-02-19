@@ -17,25 +17,33 @@
   </head>
   <body>
     <div id="app">
-      <h2>2021 Happy New Year!</h2>
-      <vue-countdown date="2021/01/01"></vue-countdown>
 
-      <h2>2021 Christmas Countdown</h2>
-      <vue-countdown date="2021/12/25"></vue-countdown>
+      <!-- Static Date Countdown -->
+      <h2>2022 Christmas Countdown</h2>
+      <vue-countdown date="2022/12/25"></vue-countdown>
 
-      <h2> {{ next.year }} Happy New Year! (Self-Updated Countdown)</h2>
+      <!-- Self-Updated Countdown -->
+      <!-- If cross to a new year, it will update its' new deadline -->
+      <h2>{{ next.year }} Happy New Year! (Self-Updated Countdown)</h2>
       <vue-countdown :date="next.date"></vue-countdown>
 
+      <!-- Custom Countdown -->
+      <!-- Customize deadline with date-picker & localStorage -->
       <h2>Custom Countdown</h2>
       <p>You Can Choose Any Date You Want Below</p>
-
       <date-picker @update="updateDate" :date="nowDate" date-format="yy/mm/dd" v-once></date-picker>
-      <!-- <span>{{ nowDate }}</span> -->
-
       <vue-countdown :date="date"></vue-countdown>
     </div>
-
+    
+    <!-- JavaScript / Vue -->
     <script>
+
+
+      /**
+       *
+       * DatePicker Component
+       *
+       */
       Vue.component ('date-picker', {
         template: '<input v-model="pickerDate" />',
         props: ['dateFormat', 'date'],
@@ -68,6 +76,12 @@
         },
       });
 
+
+      /**
+       *
+       * VueCountdown Component
+       *
+       */
       Vue.component ('vue-countdown', {
         template: '<div class="clock"></div>',
         props: ['date'],
@@ -88,12 +102,18 @@
           },
         },
         watch: {
-          date (){
+          date () {
             this.counter ();
           }
         }
       });
 
+
+      /**
+       *
+       * Vue Instance
+       *
+       */
       new Vue ({
         el: '#app',
         data () {
