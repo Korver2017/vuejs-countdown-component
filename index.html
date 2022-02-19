@@ -31,7 +31,7 @@
       <!-- Customize deadline with date-picker & localStorage -->
       <h2>Custom Countdown</h2>
       <p>You Can Choose Any Date You Want Below</p>
-      <date-picker @update="updateDate" :date="nowDate" date-format="yy/mm/dd" v-once></date-picker>
+      <date-picker @update="updateDate" :date="nowDate" date-format="yy/mm/dd"></date-picker>
       <vue-countdown :date="date"></vue-countdown>
     </div>
     
@@ -78,10 +78,6 @@
             return ! getDate ? vm.pickerDate : vm.pickerDate = getDate;
           },
         },
-
-        beforeDestroy () {
-          $(this.$el).datepicker ('hide').datepicker ('destroy');
-        },
       });
 
 
@@ -91,20 +87,27 @@
        *
        */
       Vue.component ('vue-countdown', {
-        template: '<div class="clock"></div>',
+        template: '<div class="clock" />',
         props: ['date'],
         mounted () {
           this.counter ();
         },
         methods: {
+
+          
+          /**
+           *
+           * Setup Countdown
+           *
+           */
           counter () {
             $(this.$el).countdown (this.date, function (event) {
               $(this).html (event.strftime (
-                '<div><span>%w</span><span> Week</span></div>' +
-                '<div><span>%d</span><span> Day</span></div>' +
-                '<div><span>%H</span><span> Hr</span></div>' +
-                '<div><span>%M</span><span> Min</span></div>' +
-                '<div><span>%S</span><span> Sec</span></div>'
+                `<div><span>%w</span><span> Week</span></div>
+                <div><span>%d</span><span> Day</span></div>
+                <div><span>%H</span><span> Hr</span></div>
+                <div><span>%M</span><span> Min</span></div>
+                <div><span>%S</span><span> Sec</span></div>`
               ));
             });
           },
