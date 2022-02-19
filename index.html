@@ -53,22 +53,30 @@
           }
         },
         mounted () {
+          this.fire ();
+        },
+        methods: {
 
-          let vm = this;
 
-          $(this.$el).datepicker ({
-            dateFormat: this.dateFormat,
-            onSelect: function (date) {
-              vm.$emit ('update', date);
-            }
-          });
+          /**
+           *
+           * Setup DatePicker
+           *
+           */
+          fire () {
 
-          let getDate = localStorage.getItem ('savedDate');
+            const vm = this;
 
-          if (! getDate)
-            return vm.pickerDate;
-            
-          vm.pickerDate = localStorage.getItem ('savedDate');
+            $(this.$el).datepicker ({
+              dateFormat: this.dateFormat,
+              onSelect: function (date) {
+                vm.$emit ('update', date);
+              }
+            });
+
+            const getDate = localStorage.getItem ('savedDate');
+            return ! getDate ? vm.pickerDate : vm.pickerDate = getDate;
+          },
         },
 
         beforeDestroy () {
