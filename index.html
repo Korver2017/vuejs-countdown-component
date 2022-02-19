@@ -23,12 +23,12 @@
       <vue-countdown date="2022/12/25"></vue-countdown>
 
       <!-- Self-Updated Countdown -->
-      <!-- If cross to a new year, it will update its' new deadline -->
+      <!-- If cross to a new year, it will update its' new deadline. -->
       <h2>{{ next.year }} Happy New Year! (Self-Updated Countdown)</h2>
       <vue-countdown :date="next.date"></vue-countdown>
 
       <!-- Custom Countdown -->
-      <!-- Customize deadline with date-picker & localStorage -->
+      <!-- Customize deadline with date-picker & localStorage. -->
       <h2>Custom Countdown</h2>
       <p>You Can Choose Any Date You Want Below</p>
       <date-picker @update="updateDate" :date="nowDate" date-format="yy/mm/dd"></date-picker>
@@ -83,7 +83,7 @@
 
       /**
        *
-       * VueCountdown Component
+       * VueCountdown Component.
        *
        */
       Vue.component ('vue-countdown', {
@@ -97,7 +97,7 @@
           
           /**
            *
-           * Setup Countdown
+           * Setup Countdown.
            *
            */
           counter () {
@@ -122,7 +122,7 @@
 
       /**
        *
-       * Vue Instance
+       * Vue Instance.
        *
        */
       new Vue ({
@@ -149,14 +149,25 @@
         mounted () {
           this.getDate ();
         },
-
         methods: {
 
+
+          /**
+           *
+           * Get custom date or default date.
+           *
+           */
           getDate () {
             const pickerDate = localStorage.getItem ('savedDate');
             return ! pickerDate ? this.date : this.date = pickerDate;
           },
 
+
+          /**
+           *
+           * Update custom date.
+           *
+           */
           updateDate (date) {
             this.date = date;
             localStorage.setItem ('savedDate', this.date);
