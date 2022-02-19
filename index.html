@@ -133,24 +133,19 @@
             now: moment (Date.now ()),
           }
         },
-        
         computed: {
-
           nowDate () {
             return this.now.format ('YYYY/MM/DD');
           },
-
           next () {
-
-            let next = {year: '', date: ''};
             
-            next.year = Number (this.now.format ('YYYY')) + 1;
-            next.date = `${next.year}/01/01`;
+            const year = Number (this.now.format ('YYYY')) + 1
+                , date = `${year}/01/01`
+                ;
 
-            return next;
+            return {year, date};
           }
         },
-
         mounted () {
           this.getDate ();
         },
@@ -158,13 +153,8 @@
         methods: {
 
           getDate () {
-
-            let pickerDate = localStorage.getItem ('savedDate');
-
-            if (! pickerDate)
-              return this.date;
-
-            this.date = pickerDate;
+            const pickerDate = localStorage.getItem ('savedDate');
+            return ! pickerDate ? this.date : this.date = pickerDate;
           },
 
           updateDate (date) {
