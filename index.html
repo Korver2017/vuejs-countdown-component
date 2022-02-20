@@ -24,17 +24,46 @@
 
       <!-- Self-updated countdown. -->
       <!-- If cross to a new year, it will update its' new deadline automatically. -->
-      <h2>{{ next.year }} Happy New Year! (Self-Updated Countdown)</h2>
-      <vue-countdown :date="next.date"></vue-countdown>
+      <h2>{{ nextYear.year }} Happy New Year! (Self-Updated Countdown)</h2>
+      <vue-countdown :date="nextYear.date"></vue-countdown>
 
       <!-- User custom countdown. -->
       <!-- User can customize deadline with date-picker & localStorage. -->
       <h2>Custom Countdown</h2>
       <p>You Can Choose Any Date You Want Below</p>
-      <date-picker @update="updateDate" :date="nowDate" date-format="yy/mm/dd"></date-picker>
+      <date-picker @update="updateDate" :date="date" date-format="yy/mm/dd"></date-picker>
       <vue-countdown :date="date"></vue-countdown>
     </div>    
     <script>
+
+      // VueCountdown component.
+      Vue.component ('vue-countdown', {
+        template: '<div class="clock" />',
+        props: ['date'],
+        mounted () {
+          this.initialize ();
+        },
+        methods: {
+
+          // Initialize countdown.
+          initialize () {
+            $(this.$el).countdown (this.date, function (event) {
+              $(this).html (event.strftime (
+                `<div><span>%w</span><span> Week</span></div>
+                <div><span>%d</span><span> Day</span></div>
+                <div><span>%H</span><span> Hr</span></div>
+                <div><span>%M</span><span> Min</span></div>
+                <div><span>%S</span><span> Sec</span></div>`
+              ));
+            });
+          },
+        },
+        watch: {
+          date () {
+            this.initialize ();
+          }
+        }
+      });
 
       // DatePicker component.
       Vue.component ('date-picker', {
@@ -77,57 +106,21 @@
           },
         },
       });
-
-      // VueCountdown component.
-      Vue.component ('vue-countdown', {
-        template: '<div class="clock" />',
-        props: ['date'],
-        mounted () {
-          this.initialize ();
-        },
-        methods: {
-
-          // Initialize countdown.
-          initialize () {
-            $(this.$el).countdown (this.date, function (event) {
-              $(this).html (event.strftime (
-                `<div><span>%w</span><span> Week</span></div>
-                <div><span>%d</span><span> Day</span></div>
-                <div><span>%H</span><span> Hr</span></div>
-                <div><span>%M</span><span> Min</span></div>
-                <div><span>%S</span><span> Sec</span></div>`
-              ));
-            });
-          },
-        },
-        watch: {
-          date () {
-            this.initialize ();
-          }
-        }
-      });
       
       // Vue instance.
       new Vue ({
         el: '#app',
         data () {
           return {
-            date: '2019/01/01',
             now: moment (Date.now ()),
+            date: moment (Date.now ()).format ('YYYY/MM/DD'),
           }
         },
         computed: {
-          nowDate () {
-            return this.now.format ('YYYY/MM/DD');
+          nextYear () {
+            const year = Number (this.now.format ('YYYY')) + 1;
+            return {year, date: `${year}/01/01`};
           },
-          next () {
-            
-            const year = Number (this.now.format ('YYYY')) + 1
-                , date = `${year}/01/01`
-                ;
-
-            return {year, date};
-          }
         },
         mounted () {
           this.getDate ();
