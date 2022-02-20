@@ -46,12 +46,12 @@
           }
         },
         mounted () {
-          this.fire ();
+          this.initialize ();
         },
         methods: {
 
-          // Setup DatePicker.
-          fire () {
+          // Initialize DatePicker.
+          initialize () {
 
             const vm = this;
 
@@ -73,12 +73,12 @@
         template: '<div class="clock" />',
         props: ['date'],
         mounted () {
-          this.counter ();
+          this.initialize ();
         },
         methods: {
 
-          // Setup countdown.
-          counter () {
+          // Initialize countdown.
+          initialize () {
             $(this.$el).countdown (this.date, function (event) {
               $(this).html (event.strftime (
                 `<div><span>%w</span><span> Week</span></div>
@@ -92,7 +92,7 @@
         },
         watch: {
           date () {
-            this.counter ();
+            this.initialize ();
           }
         }
       });
