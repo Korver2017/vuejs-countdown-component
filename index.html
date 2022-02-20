@@ -39,7 +39,16 @@
       // DatePicker component.
       Vue.component ('date-picker', {
         template: '<input v-model="pickerDate" />',
-        props: ['dateFormat', 'date'],
+        props: {
+          dateFormat: {
+            type: String,
+            default: 'yy/mm/dd',
+          },
+          date: {
+            type: String,
+            default: '2022/12/25',
+          }
+        },
         data () {
           return {
             pickerDate: this.date,
@@ -54,14 +63,15 @@
           initialize () {
 
             const vm = this;
-
-            $(this.$el).datepicker ({
-              dateFormat: this.dateFormat,
+            
+            $(vm.$el).datepicker ({
+              dateFormat: vm.dateFormat,
               onSelect: function (date) {
                 vm.$emit ('update', date);
               }
             });
 
+            // If `localStorage` has `savedDate` then set `date` value equal to it.
             const getDate = localStorage.getItem ('savedDate');
             return ! getDate ? vm.pickerDate : vm.pickerDate = getDate;
           },
