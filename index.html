@@ -48,11 +48,17 @@
         mounted () {
           this.initialize ();
         },
+        watch: {
+          date () {
+            this.initialize ();
+          }
+        },
         methods: {
 
           // Initialize countdown.
           initialize () {
-            $(this.$el).countdown (this.date, function (event) {
+            const vm = this;
+            $(vm.$el).countdown (vm.date, function (event) {
               $(this).html (event.strftime (
                 `<div><span>%w</span><span> Week</span></div>
                 <div><span>%d</span><span> Day</span></div>
@@ -63,11 +69,6 @@
             });
           },
         },
-        watch: {
-          date () {
-            this.initialize ();
-          }
-        }
       });
 
       // DatePicker component.
