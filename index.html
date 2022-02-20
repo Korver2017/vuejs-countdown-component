@@ -39,7 +39,12 @@
       // VueCountdown component.
       Vue.component ('vue-countdown', {
         template: '<div class="clock" />',
-        props: ['date'],
+        props: {
+          date: {
+            type: String,
+            default: moment (Date.now ()).format ('YYYY/MM/DD'),
+          }
+        },
         mounted () {
           this.initialize ();
         },
@@ -75,7 +80,7 @@
           },
           date: {
             type: String,
-            default: '2022/12/25',
+            default: moment (Date.now ()).format ('YYYY/MM/DD'),
           }
         },
         data () {
@@ -129,6 +134,8 @@
           
           // Get custom date or default date.
           getDate () {
+
+            // If `localStorage` has `savedDate` then set `date` value equal to it.
             const pickerDate = localStorage.getItem ('savedDate');
             return ! pickerDate ? this.date : this.date = pickerDate;
           },
