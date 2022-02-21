@@ -19,26 +19,32 @@
     <div id="app">
 
       <!-- Static-Date countdown. -->
-      <h2>2022 Christmas Countdown (Static-Date Countdown)</h2>
-      <vue-countdown date="2022/12/25"></vue-countdown>
+      <div class="countdown">
+        <h2>2022 Christmas Countdown (Static-Date Countdown)</h2>
+        <vue-countdown date="2022/12/25"></vue-countdown>
+      </div>
 
       <!-- Self-updated countdown. -->
       <!-- If cross to a new year, it will update its' new deadline automatically. -->
-      <h2>{{ nextYear.year }} Happy New Year! (Self-Updated Countdown)</h2>
-      <vue-countdown :date="nextYear.date"></vue-countdown>
+      <div class="countdown">
+        <h2>{{ nextYear.year }} Happy New Year! (Self-Updated Countdown)</h2>
+        <vue-countdown :date="nextYear.date"></vue-countdown>
+      </div>
 
       <!-- User custom countdown. -->
       <!-- User can customize deadline with date-picker & localStorage. -->
-      <h2>Custom Countdown</h2>
-      <p>You Can Choose Any Date You Want Below</p>
-      <date-picker @update="updateDate" :date="date" date-format="yy/mm/dd"></date-picker>
-      <vue-countdown :date="date"></vue-countdown>
+      <div class="countdown">
+        <h2>Custom Countdown</h2>
+        <p>You Can Choose Any Date You Want Below</p>
+        <date-picker @update="updateDate" :date="date" date-format="yy/mm/dd"></date-picker>
+        <vue-countdown :date="date"></vue-countdown>
+      </div>
     </div>    
     <script>
 
       // VueCountdown component.
       Vue.component ('vue-countdown', {
-        template: '<div class="clock" />',
+        template: '<div class="counter" />',
         props: {
           date: {
             type: String,
