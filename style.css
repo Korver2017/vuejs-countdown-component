@@ -21,6 +21,7 @@ body {
   color: #fff;
   margin-top: 0;
   margin-bottom: 1rem;
+  font-size: 20px;
 }
 .countdown:last-child h2 {
   margin-bottom: 0;
@@ -41,24 +42,25 @@ input {
 span {
   color: #ffffff;
 }
-.clock {
+.counter {
   display: flex;
   width: 570px;
   margin: 0 auto;
+  justify-content: center;
 }
-.clock div {
+.counter div {
   position: relative;
-  width: 100px;
-  padding: 20px;
+  width: 50px;
+  padding: 15px;
   margin: 0 5px;
   background-color: #262626;
   color: #fff;
   border: 2px solid #000;
 }
-.clock div:last-child {
+.counter div:last-child {
   background-color: #e91e63;
 }
-.clock div:before {
+.counter div:before {
   position: absolute;
   content: '';
   width: 100%;
@@ -67,15 +69,15 @@ span {
   left: 0;
   background: rgba(255, 255, 255, .2);
 }
-.clock div span {
+.counter div span {
   display: block;
   text-align: center;
 }
-.clock div span:nth-child(1) {
-  font-size: 48px;
+.counter div span:nth-child(1) {
+  font-size: 32px;
   font-weight: 800;
 }
-.clock div span:nth-child(2) {
+.counter div span:nth-child(2) {
   font-size: 18px;
   font-weight: 800;
   margin-top: -10px;
