@@ -11,19 +11,25 @@ body {
 #app {
   margin: 3rem;
 }
-#app h2 {
+.countdown {
+  margin-bottom: 2.5rem;
+}
+.countdown:last-child {
+  margin-bottom: 0;
+}
+.countdown h2 {
   color: #fff;
   margin-top: 0;
   margin-bottom: 1rem;
 }
-#app h2:last-child {
+.countdown:last-child h2 {
   margin-bottom: 0;
 }
-#app p {
+p {
   color: #fff;
   margin-top: 0;
 }
-#app input {
+input {
   font-family: 'Poppins', sans-serif;
   border-radius: 20px;
   outline: none;
@@ -32,16 +38,13 @@ body {
   height: 2rem;
   margin-bottom: 1rem;
 }
-#app span {
+span {
   color: #ffffff;
 }
 .clock {
   display: flex;
   width: 570px;
-  margin: 0 auto 2.5rem;
-}
-.clock:last-child {
-  margin-bottom: 0;
+  margin: 0 auto;
 }
 .clock div {
   position: relative;
