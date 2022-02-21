@@ -5,58 +5,62 @@ body {
   text-align: center;
   font-family: 'Poppins', sans-serif;
   background-color: #262626;
+  min-height: 100vh;
+  margin: 0;
 }
-
-#app h2 {
-  color: #fff;
-  margin-bottom: .5rem;
+#app {
+  margin: 3rem;
 }
-
-#app h2:last-child {
+.countdown {
+  margin-bottom: 2.5rem;
+}
+.countdown:last-child {
   margin-bottom: 0;
 }
-
-#app p {
+.countdown h2 {
+  color: #fff;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 20px;
+}
+.countdown:last-child h2 {
+  margin-bottom: 0;
+}
+p {
   color: #fff;
   margin-top: 0;
 }
-
-#app input {
+input {
   font-family: 'Poppins', sans-serif;
   border-radius: 20px;
   outline: none;
   border: none;
   text-align: center;
   height: 2rem;
-  margin-right: 1rem;
   margin-bottom: 1rem;
 }
-
-#app span {
+span {
   color: #ffffff;
 }
-
-.clock {
+.counter {
   display: flex;
   width: 570px;
   margin: 0 auto;
+  justify-content: center;
 }
-
-.clock div {
+.counter div {
   position: relative;
-  width: 100px;
-  padding: 20px;
+  width: 50px;
+  padding: 15px;
   margin: 0 5px;
   background-color: #262626;
   color: #fff;
   border: 2px solid #000;
 }
-
-.clock div:last-child {
+.counter div:last-child {
   background-color: #e91e63;
 }
-
-.clock div:before {
+.counter div:before {
   position: absolute;
   content: '';
   width: 100%;
@@ -65,18 +69,15 @@ body {
   left: 0;
   background: rgba(255, 255, 255, .2);
 }
-
-.clock div span {
+.counter div span {
   display: block;
   text-align: center;
 }
-
-.clock div span:nth-child(1) {
-  font-size: 48px;
+.counter div span:nth-child(1) {
+  font-size: 32px;
   font-weight: 800;
 }
-
-.clock div span:nth-child(2) {
+.counter div span:nth-child(2) {
   font-size: 18px;
   font-weight: 800;
   margin-top: -10px;
