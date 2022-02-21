@@ -5,22 +5,24 @@ body {
   text-align: center;
   font-family: 'Poppins', sans-serif;
   background-color: #262626;
+  min-height: 100vh;
+  margin: 0;
 }
-
+#app {
+  margin: 3rem;
+}
 #app h2 {
   color: #fff;
-  margin-bottom: .5rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
 }
-
 #app h2:last-child {
   margin-bottom: 0;
 }
-
 #app p {
   color: #fff;
   margin-top: 0;
 }
-
 #app input {
   font-family: 'Poppins', sans-serif;
   border-radius: 20px;
@@ -28,20 +30,19 @@ body {
   border: none;
   text-align: center;
   height: 2rem;
-  margin-right: 1rem;
   margin-bottom: 1rem;
 }
-
 #app span {
   color: #ffffff;
 }
-
 .clock {
   display: flex;
   width: 570px;
-  margin: 0 auto;
+  margin: 0 auto 2.5rem;
 }
-
+.clock:last-child {
+  margin-bottom: 0;
+}
 .clock div {
   position: relative;
   width: 100px;
@@ -51,11 +52,9 @@ body {
   color: #fff;
   border: 2px solid #000;
 }
-
 .clock div:last-child {
   background-color: #e91e63;
 }
-
 .clock div:before {
   position: absolute;
   content: '';
@@ -65,17 +64,14 @@ body {
   left: 0;
   background: rgba(255, 255, 255, .2);
 }
-
 .clock div span {
   display: block;
   text-align: center;
 }
-
 .clock div span:nth-child(1) {
   font-size: 48px;
   font-weight: 800;
 }
-
 .clock div span:nth-child(2) {
   font-size: 18px;
   font-weight: 800;
