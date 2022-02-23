@@ -20,15 +20,16 @@ body {
 .countdown h2 {
   color: #fff;
   margin-top: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   font-size: 20px;
 }
-.countdown:last-child h2 {
-  margin-bottom: 0;
+.countdown:first-child h2 {
+  margin-bottom: 1rem;
 }
 p {
   color: #fff;
   margin-top: 0;
+  margin-bottom: 1.5rem;
 }
 input {
   font-family: 'Poppins', sans-serif;
