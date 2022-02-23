@@ -1,159 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Vue.js Countdown Timer</title>
-    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js' integrity='sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==' crossorigin='anonymous'></script>
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css'/>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js'></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.countdown/2.2.0/jquery.countdown.js"></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.14/vue.min.js' integrity='sha512-XdUZ5nrNkVySQBnnM5vzDqHai823Spoq1W3pJoQwomQja+o4Nw0Ew1ppxo5bhF2vMug6sfibhKWcNJsG8Vj9tg==' crossorigin='anonymous'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js'>
-    </script>
-  </head>
-  <body>
-    <div id="app">
 
-      <!-- Static-Date countdown. -->
-      <div class="countdown">
-        <h2>2022 Christmas Countdown (Static-Date Countdown)</h2>
-        <vue-countdown date="2022/12/25"></vue-countdown>
-      </div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Vue.js Countdown Timer</title>
+  <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
 
-      <!-- Self-updated countdown. -->
-      <!-- If cross to a new year, it will update its' new deadline automatically. -->
-      <div class="countdown">
-        <h2>{{ nextYear.year }} Happy New Year! (Self-Updated Countdown)</h2>
-        <vue-countdown :date="nextYear.date"></vue-countdown>
-      </div>
+<body>
+  <div id="app">
 
-      <!-- User custom countdown. -->
-      <!-- User can customize deadline with date-picker & localStorage. -->
-      <div class="countdown">
-        <h2>Custom Countdown</h2>
-        <p>You Can Choose Any Date You Want Below</p>
-        <date-picker @update="updateDate" :date="date" date-format="yy/mm/dd"></date-picker>
-        <vue-countdown :date="date"></vue-countdown>
-      </div>
-    </div>    
-    <script>
+    <!-- Static-Date countdown. -->
+    <div class="countdown">
+      <h2>2022 Christmas Countdown (Static-Date Countdown)</h2>
+      <vue-countdown date="2022/12/25"></vue-countdown>
+    </div>
 
-      // VueCountdown component.
-      Vue.component ('vue-countdown', {
-        template: '<div class="counter" />',
-        props: {
-          date: {
-            type: String,
-            default: moment (Date.now ()).format ('YYYY/MM/DD'),
-          }
-        },
-        mounted () {
+    <!-- Self-updated countdown. -->
+    <!-- If cross to a new year, it will update its' new deadline automatically. -->
+    <div class="countdown">
+      <h2>{{ nextYear.year }} Happy New Year! (Self-Updated Countdown)</h2>
+      <p>When The Year Reaches to The End, <br />
+        It Will Update the Deadline to Next Year Automatically.
+      </p>
+      <vue-countdown :date="nextYear.date"></vue-countdown>
+    </div>
+
+    <!-- User custom countdown. -->
+    <!-- User can customize deadline with date-picker & localStorage. -->
+    <div class="countdown">
+      <h2>Custom Countdown</h2>
+      <p>You Can Choose Any Date You Want Below for Countdown.</p>
+      <date-picker @update="updateDate" :date="date" date-format="yy/mm/dd"></date-picker>
+      <vue-countdown :date="date"></vue-countdown>
+    </div>
+  </div>
+
+  <!-- Vue -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.14/vue.min.js'
+    integrity='sha512-XdUZ5nrNkVySQBnnM5vzDqHai823Spoq1W3pJoQwomQja+o4Nw0Ew1ppxo5bhF2vMug6sfibhKWcNJsG8Vj9tg=='
+    crossorigin='anonymous'></script>
+
+  <!-- Library -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js'
+    integrity='sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=='
+    crossorigin='anonymous'></script>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css' />
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js'></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.countdown/2.2.0/jquery.countdown.js"></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js'>
+  </script>
+
+  <!-- Vue components & instance -->
+  <script>
+
+    // VueCountdown component.
+    Vue.component ('vue-countdown', {
+      template: '<div class="counter" />',
+      props: {
+        date: {
+          type: String,
+          default: moment (Date.now ()).format ('YYYY/MM/DD'),
+        }
+      },
+      mounted () {
+        this.initialize ();
+      },
+      watch: {
+        date () {
           this.initialize ();
-        },
-        watch: {
-          date () {
-            this.initialize ();
-          }
-        },
-        methods: {
+        }
+      },
+      methods: {
 
-          // Initialize countdown.
-          initialize () {
-            const vm = this;
-            $(vm.$el).countdown (vm.date, function (event) {
-              $(this).html (event.strftime (
-                `<div><span>%w</span><span> Week</span></div>
-                <div><span>%d</span><span> Day</span></div>
-                <div><span>%H</span><span> Hr</span></div>
-                <div><span>%M</span><span> Min</span></div>
+        // Initialize countdown.
+        initialize () {
+          const vm = this;
+          $(vm.$el).countdown (vm.date, function (event) {
+            $(this).html (event.strftime (
+              `<div><span>%w</span><span> Weeks</span></div>
+                <div><span>%d</span><span> Days</span></div>
+                <div><span>%H</span><span> Hrs</span></div>
+                <div><span>%M</span><span> Mins</span></div>
                 <div><span>%S</span><span> Sec</span></div>`
-              ));
-            });
-          },
+            ));
+          });
         },
-      });
+      },
+    });
 
-      // DatePicker component.
-      Vue.component ('date-picker', {
-        template: '<input v-model="pickerDate" />',
-        props: {
-          dateFormat: {
-            type: String,
-            default: 'yy/mm/dd',
-          },
-          date: {
-            type: String,
-            default: moment (Date.now ()).format ('YYYY/MM/DD'),
-          }
+    // DatePicker component.
+    Vue.component ('date-picker', {
+      template: '<input v-model="pickerDate" />',
+      props: {
+        dateFormat: {
+          type: String,
+          default: 'yy/mm/dd',
         },
-        data () {
-          return {
-            pickerDate: this.date,
-          }
-        },
-        mounted () {
-          this.initialize ();
-        },
-        methods: {
+        date: {
+          type: String,
+          default: moment (Date.now ()).format ('YYYY/MM/DD'),
+        }
+      },
+      data () {
+        return {
+          pickerDate: this.date,
+        }
+      },
+      mounted () {
+        this.initialize ();
+      },
+      methods: {
 
-          // Initialize DatePicker.
-          initialize () {
+        // Initialize DatePicker.
+        initialize () {
 
-            const vm = this;
-            
-            $(vm.$el).datepicker ({
-              dateFormat: vm.dateFormat,
-              onSelect: function (date) {
-                vm.$emit ('update', date);
-              }
-            });
+          const vm = this;
 
-            // If `localStorage` has `savedDate` then set `date` value equal to it.
-            const getDate = localStorage.getItem ('savedDate');
-            return ! getDate ? vm.pickerDate : vm.pickerDate = getDate;
-          },
-        },
-      });
-      
-      // Vue instance.
-      new Vue ({
-        el: '#app',
-        data () {
-          return {
-            now: moment (Date.now ()),
-            date: moment (Date.now ()).format ('YYYY/MM/DD'),
-          }
-        },
-        computed: {
-          nextYear () {
-            const year = Number (this.now.format ('YYYY')) + 1;
-            return {year, date: `${year}/01/01`};
-          },
-        },
-        mounted () {
-          this.getDate ();
-        },
-        methods: {
-          
-          // Get custom date or default date.
-          getDate () {
+          $(vm.$el).datepicker ({
+            dateFormat: vm.dateFormat,
+            onSelect: function (date) {
+              vm.$emit ('update', date);
+            }
+          });
 
-            // If `localStorage` has `savedDate` then set `date` value equal to it.
-            const pickerDate = localStorage.getItem ('savedDate');
-            return ! pickerDate ? this.date : this.date = pickerDate;
-          },
-          
-          // Update custom date.
-          updateDate (date) {
-            this.date = date;
-            localStorage.setItem ('savedDate', this.date);
-          },
+          // If `localStorage` has `savedDate` then set `date` value equal to it.
+          const getDate = localStorage.getItem ('savedDate');
+          return !getDate ? vm.pickerDate : vm.pickerDate = getDate;
         },
-      });
-    </script>
-  </body>
+      },
+    });
+
+    // Vue instance.
+    new Vue ({
+      el: '#app',
+      data () {
+        return {
+          now: moment (Date.now ()),
+          date: moment (Date.now ()).format ('YYYY/MM/DD'),
+        }
+      },
+      computed: {
+        nextYear () {
+          const year = Number (this.now.format ('YYYY')) + 1;
+          return { year, date: `${year}/01/01` };
+        },
+      },
+      mounted () {
+        this.getDate ();
+      },
+      methods: {
+
+        // Get custom date or default date.
+        getDate () {
+
+          // If `localStorage` has `savedDate` then set `date` value equal to it.
+          const pickerDate = localStorage.getItem ('savedDate');
+          return !pickerDate ? this.date : this.date = pickerDate;
+        },
+
+        // Update custom date.
+        updateDate (date) {
+          this.date = date;
+          localStorage.setItem ('savedDate', this.date);
+        },
+      },
+    });
+  </script>
+</body>
+
 </html>
