@@ -23,6 +23,9 @@
     <!-- If cross to a new year, it will update its' new deadline automatically. -->
     <div class="countdown">
       <h2>{{ nextYear.year }} Happy New Year! (Self-Updated Countdown)</h2>
+      <p>When The Year Reaches to The End, <br />
+        It Will Update the Deadline to Next Year Automatically.
+      </p>
       <vue-countdown :date="nextYear.date"></vue-countdown>
     </div>
 
@@ -30,7 +33,7 @@
     <!-- User can customize deadline with date-picker & localStorage. -->
     <div class="countdown">
       <h2>Custom Countdown</h2>
-      <p>You Can Choose Any Date You Want Below</p>
+      <p>You Can Choose Any Date You Want Below for Countdown.</p>
       <date-picker @update="updateDate" :date="date" date-format="yy/mm/dd"></date-picker>
       <vue-countdown :date="date"></vue-countdown>
     </div>
